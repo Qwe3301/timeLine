@@ -4,41 +4,78 @@ import 'package:time_line/data/dataFake/DataFake.dart';
 class EventController extends ChangeNotifier {
   DataFake db = DataFake();
 
-  Map<int, Map<String, dynamic>> get dbClone => db.teste2;
+  List<Map<String, dynamic>> get dbClone => db.teste2;
   List<Map<String, int>> listaOpen = [];
 
-  void addListaOpen(int inicio, int end, int color) {
-    listaOpen.add(
-      {"inicio": inicio, "end": end, "color": color},
-    );
-
+  void addListaOpen(int firstYearParam, int lastParam, int colorParam) {
+    listaOpen
+        .add({"inicio": firstYearParam, "end": lastParam, "color": colorParam});
     notifyListeners();
   }
 
-  void removeArrayIsOpen(int inicio) {
-    listaOpen.removeWhere((element) => element["inicio"] == inicio);
+  void removeArrayIsOpen(int inicioParam) {
+    listaOpen.removeWhere((element) => element["inicio"] == inicioParam);
     notifyListeners();
   }
 
-  bool linha(i, year, index) {
-    bool a = false;
-    if (listaOpen.isNotEmpty &&
-        listaOpen[i]["inicio"]! <= year + index &&
-        listaOpen[i]["end"]! >= year + index) {
-      return a = true;
+  void changeIsOpen(int eachYear) {
+    for (var i = 0; i < db.teste2.length; i++) {
+      if (db.teste2[i]["inicio"] == eachYear) {
+        if (db.teste2[i]["isOpen"]) {
+          removeArrayIsOpen(dbClone[i]["inicio"]);
+          notifyListeners();
+        } else {
+          addListaOpen(
+              dbClone[i]["inicio"], dbClone[i]["final"], dbClone[i]["color"]);
+          notifyListeners();
+        }
+        db.teste2[i]["isOpen"] = !db.teste2[i]["isOpen"];
+      }
     }
-    return a;
   }
 
-  void functionChangeIsOpen(int year) {
-    if (dbClone[year]!["isOpen"]) {
-      removeArrayIsOpen(dbClone[year]!["inicio"]);
-      notifyListeners();
-    } else {
-      addListaOpen(dbClone[year]!["inicio"], dbClone[year]!["final"],
-          dbClone[year]!["color"]);
-      notifyListeners();
+  bool linha(indexParam, eachYearParam) =>
+      listaOpen.isNotEmpty &&
+      listaOpen[indexParam]["inicio"]! <= eachYearParam &&
+      listaOpen[indexParam]["end"]! >= eachYearParam;
+
+  int colorLine(int eachYearParam) {
+    int colorLineVar = 0;
+    for (var i = 0; i < dbClone.length; i++) {
+      if (eachYearParam == dbClone[i]["inicio"]) {
+        colorLineVar = dbClone[i]["color"]!;
+      }
     }
-    dbClone[year]!["isOpen"] = !dbClone[year]!["isOpen"];
+    return colorLineVar;
+  }
+
+  bool hasEvent(int eachYearParam) {
+    bool? isOpenVar;
+    for (var i = 0; i < db.teste2.length; i++) {
+      if (db.teste2[i]["inicio"] == eachYearParam) {
+        isOpenVar = true;
+      }
+    }
+    return isOpenVar ?? false;
+  }
+
+  bool isOpen(int eachYearParam) {
+    bool? isOpenVar;
+    for (var i = 0; i < db.teste2.length; i++) {
+      if (db.teste2[i]["inicio"] == eachYearParam && db.teste2[i]["isOpen"]) {
+        isOpenVar = true;
+      }
+    }
+    return isOpenVar ?? false;
+  }
+
+  String name(int eachYearParam) {
+    String? isOpen;
+    for (var i = 0; i < db.teste2.length; i++) {
+      if (db.teste2[i]["inicio"] == eachYearParam) {
+        isOpen = db.teste2[i]["nome"];
+      }
+    }
+    return isOpen ?? "";
   }
 }

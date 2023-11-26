@@ -22,41 +22,14 @@ class _DrawerEventState extends State<DrawerEvent> {
 
     return Container(
       color: Colors.green,
-      child: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () => functionFocusYear(-1360),
-            child: Text("Roberto Carlos Pereira da Silva"),
-          ),
-          ElevatedButton(
-            onPressed: () => functionFocusYear(1708),
-            child: Text("Sofia Gomes"),
-          ),
-          ElevatedButton(
-            onPressed: () => functionFocusYear(1709),
-            child: Text("Ribeirao de Carvalho Paula"),
-          ),
-          ElevatedButton(
-            onPressed: () => functionFocusYear(1712),
-            child: Text("Gustavo Winchester"),
-          ),
-          ElevatedButton(
-            onPressed: () => functionFocusYear(1716),
-            child: Text("Carlos"),
-          ),
-          ElevatedButton(
-            onPressed: () => functionFocusYear(1717),
-            child: Text("Jacson Carlo Amaral"),
-          ),
-          ElevatedButton(
-            onPressed: () => functionFocusYear(3720),
-            child: Text("Gustavo Winchester"),
-          ),
-          ElevatedButton(
-            onPressed: () => functionFocusYear(69696969696969696),
-            child: Text("hehe Safado"),
-          ),
-        ],
+      child: ListView.builder(
+        itemCount: timeLineController.dbClone.length,
+        itemBuilder: (context, index) {
+          return ElevatedButton(
+            onPressed: () => {},
+            child: Text(timeLineController.db.teste2[index]["nome"]),
+          );
+        },
       ),
     );
   }

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:time_line/data/dataFake/DataFake.dart';
 
 class TimeLineController extends ChangeNotifier {
   final ScrollController _scrollController =
       ScrollController(initialScrollOffset: 40 * 50);
 
   ScrollController get scrollController => _scrollController;
+
+  DataFake db = DataFake();
+
+  List<Map<String, dynamic>> get dbClone => db.teste2;
 
   void addNewScrollListener() {
     _scrollController.addListener(scrollListener);

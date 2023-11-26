@@ -5,16 +5,14 @@ class RepositoryController extends ChangeNotifier {
   DataFake db = DataFake();
 
   void addDb({required int index, required String context, required int end}) {
-    db.teste2.addEntries({
-      index: {
-        "nome": context,
-        "context": "LETS GO",
-        "inicio": index,
-        "final": end,
-        "isOpen": false,
-        "color": 0xff000000,
-      }
-    }.entries);
+    db.teste2.add({
+      "nome": context,
+      "context": "LETS GO",
+      "inicio": index,
+      "final": end,
+      "isOpen": false,
+      "color": 0xff000000,
+    });
     notifyListeners();
   }
 }
