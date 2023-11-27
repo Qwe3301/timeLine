@@ -60,12 +60,10 @@ flutter:
   # uses-material-design: true
 
   assets:
-    - assets/images/ponte.jpg
-    - assets/images/velho.jpg
-    - assets/Icons/loupe.png
-    - assets/Icons/menu.png
-    - assets/Icons/add.png
-    - assets/Icons/user.png
+    - assets/images/Icons/loupe.png
+    - assets/images/Icons/menu.png
+    - assets/images/Icons/add.png
+    - assets/images/Icons/user.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

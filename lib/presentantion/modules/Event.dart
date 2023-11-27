@@ -16,10 +16,21 @@ class _EventModuleState extends State<EventModule> {
   Widget build(BuildContext context) {
     EventController db = Provider.of<EventController>(context);
     int eachYear = widget.year + widget.index;
+    Iterable<Map<String, dynamic>> teste = db.teste(eachYear);
+    bool hasEvent = teste.isNotEmpty;
+
+    Column eventContet(int eachYear) => Column(
+          children: [
+            Text("${teste.first["inicio"]} - ${teste.first["inicio"]}"),
+            if (teste.first["image"] != "")
+              Image.network(teste.first["image"], height: 150),
+            Text(teste.first["content"]),
+          ],
+        );
 
     return Container(
       color: Colors.white,
-      height: db.isOpen(eachYear) ? 300 : 40,
+      height: hasEvent && teste.first["isOpen"] ? 300 : 40,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -34,12 +45,12 @@ class _EventModuleState extends State<EventModule> {
                   Container(
                     margin: EdgeInsets.only(left: 10.0 * index),
                     width: 3,
-                    height: db.isOpen(eachYear) ? 300 : 50,
+                    height: hasEvent && teste.first["isOpen"] ? 300 : 40,
                     color: Color(db.listaOpen[index]["color"] ?? 0xff0000),
                   ),
             ],
           ),
-          if (db.hasEvent(eachYear))
+          if (hasEvent)
             Flexible(
               child: GestureDetector(
                 onTap: () => db.changeIsOpen(eachYear),
@@ -47,20 +58,26 @@ class _EventModuleState extends State<EventModule> {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(left: 10, right: 10),
-                      height: db.isOpen(eachYear) ? 295 : 40,
+                      height: teste.first["isOpen"] ? 295 : 40,
+                      width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Color(db.colorLine(eachYear)),
+                        color: Color(teste.first["color"]),
                         border: Border.all(color: Colors.black, width: 2),
                         borderRadius: BorderRadius.circular(25),
                       ),
-                      child: Center(
-                          child: Text(
-                        " ${db.name(eachYear)}",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      )),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            " ${teste.first["nome"]}",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          if (teste.first["isOpen"]) eventContet(eachYear)
+                        ],
+                      ),
                     ),
                   ],
                 ),
