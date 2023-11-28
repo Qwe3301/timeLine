@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_line/presentantion/modules/event.dart';
 import 'package:time_line/provider/TimeLineController.dart';
-import 'package:time_line/provider/repositoryController.dart';
 
 class InteractiveModule extends StatefulWidget {
   const InteractiveModule({super.key});

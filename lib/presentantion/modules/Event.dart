@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_line/provider/EventController.dart';
 
+// ignore: must_be_immutable
 class EventModule extends StatefulWidget {
   EventModule({super.key, required this.year, required this.index});
   int year;
@@ -23,7 +24,22 @@ class _EventModuleState extends State<EventModule> {
           children: [
             Text("${teste.first["inicio"]} - ${teste.first["inicio"]}"),
             if (teste.first["image"] != "")
-              Image.network(teste.first["image"], height: 150),
+              Image.network(
+                teste.first["image"],
+                height: 150,
+                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                  return child;
+                },
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
             Text(teste.first["content"]),
           ],
         );

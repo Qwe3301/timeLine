@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:time_line/presentantion/Screens/ScreenHome/DrawerEvent.dart';
 import 'package:time_line/presentantion/Screens/ScreenHome/Interactive.dart';
-import 'package:time_line/data/dataFake/DataFake.dart';
 
 class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
@@ -17,7 +15,7 @@ class _ScreenHomeState extends State<ScreenHome> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         child: DrawerEvent(),
       ),
       resizeToAvoidBottomInset: false,
@@ -45,7 +43,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                                   image: AssetImage('assets/Icons/menu.png'))),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 10, right: 10),
+                          padding: const EdgeInsets.only(left: 10, right: 10),
                           width: 250,
                           decoration: BoxDecoration(
                             color: const Color(0xffD7D7D7),
