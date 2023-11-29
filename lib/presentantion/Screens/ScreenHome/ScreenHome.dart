@@ -42,25 +42,32 @@ class _ScreenHomeState extends State<ScreenHome> {
                               image: DecorationImage(
                                   image: AssetImage('assets/Icons/menu.png'))),
                         ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          width: 250,
-                          decoration: BoxDecoration(
-                            color: const Color(0xffD7D7D7),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: TextField(
-                              decoration: InputDecoration(
-                            border: InputBorder.none,
-                            suffix: Container(
-                              width: 20,
-                              height: 20,
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/Icons/loupe.png'))),
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(
+                                left: 10,
+                                right: 10,
+                              ),
+                              width: 170,
+                              height: 44,
+                              decoration: BoxDecoration(
+                                color: const Color(0xffD7D7D7),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: const TextField(
+                                style: TextStyle(fontSize: 14),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
                             ),
-                          )),
+                            const SizedBox(width: 10),
+                            const Image(
+                              image: AssetImage('assets/Icons/loupe.png'),
+                              height: 30,
+                            ),
+                          ],
                         ),
                         Container(
                           width: 25,
