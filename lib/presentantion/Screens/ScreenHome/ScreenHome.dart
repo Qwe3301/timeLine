@@ -42,28 +42,26 @@ class _ScreenHomeState extends State<ScreenHome> {
                               image: DecorationImage(
                                   image: AssetImage('assets/Icons/menu.png'))),
                         ),
-                        Row(
+                        const Row(
                           children: [
-                            Container(
-                              padding: const EdgeInsets.only(
-                                left: 10,
-                                right: 10,
-                              ),
-                              width: 170,
-                              height: 44,
-                              decoration: BoxDecoration(
-                                color: const Color(0xffD7D7D7),
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: const TextField(
+                            SizedBox(
+                              width: 250,
+                              height: 30,
+                              child: TextField(
                                 style: TextStyle(fontSize: 14),
                                 decoration: InputDecoration(
-                                  border: InputBorder.none,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(25),
+                                    ),
+                                  ),
+                                  contentPadding:
+                                      EdgeInsets.only(left: 10, right: 10),
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 10),
-                            const Image(
+                            SizedBox(width: 10),
+                            Image(
                               image: AssetImage('assets/Icons/loupe.png'),
                               height: 30,
                             ),
