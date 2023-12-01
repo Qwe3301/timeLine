@@ -21,15 +21,24 @@ class _DrawerEventState extends State<DrawerEvent> {
     }
 
     return Container(
-      color: Colors.green,
       child: ListView.builder(
         itemCount: timeLineController.dbClone.length,
+        itemExtent: 50,
         itemBuilder: (context, index) {
-          return ElevatedButton(
-            onPressed: () => {
-              functionFocusYear(timeLineController.dbClone[index]["inicio"])
-            },
-            child: Text(timeLineController.db.teste2[index]["nome"]),
+          return Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      Color(timeLineController.db.teste2[index]["color"])),
+              onPressed: () => {
+                functionFocusYear(timeLineController.dbClone[index]["inicio"])
+              },
+              child: Text(
+                timeLineController.db.teste2[index]["nome"],
+                style: const TextStyle(color: Colors.black),
+              ),
+            ),
           );
         },
       ),

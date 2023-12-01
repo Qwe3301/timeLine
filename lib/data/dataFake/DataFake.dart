@@ -8,7 +8,7 @@ class DataFake {
       "inicio": -1360,
       "final": -1390,
       "isOpen": false,
-      "color": 0xff0d0100,
+      "color": 0xff6A5959,
     },
     {
       "nome": "Sofia Gomes",
@@ -68,7 +68,7 @@ class DataFake {
       "inicio": 3720,
       "final": 3749,
       "isOpen": false,
-      "color": 0xFFE60B0B,
+      "color": 0xFFFAFF00,
     },
     {
       "nome": "Exemplo grande",
