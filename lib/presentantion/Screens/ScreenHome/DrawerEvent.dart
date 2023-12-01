@@ -26,7 +26,9 @@ class _DrawerEventState extends State<DrawerEvent> {
         itemCount: timeLineController.dbClone.length,
         itemBuilder: (context, index) {
           return ElevatedButton(
-            onPressed: () => {},
+            onPressed: () => {
+              functionFocusYear(timeLineController.dbClone[index]["inicio"])
+            },
             child: Text(timeLineController.db.teste2[index]["nome"]),
           );
         },

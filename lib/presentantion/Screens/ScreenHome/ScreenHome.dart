@@ -15,6 +15,50 @@ class _ScreenHomeState extends State<ScreenHome> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          SizedBox(
+            height: 60,
+            width: size.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Row(
+                  children: [
+                    SizedBox(
+                      width: 250,
+                      height: 30,
+                      child: TextField(
+                        style: TextStyle(fontSize: 14),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(25),
+                            ),
+                          ),
+                          contentPadding: EdgeInsets.only(left: 10, right: 10),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Image(
+                      image: AssetImage('assets/Icons/loupe.png'),
+                      height: 30,
+                    ),
+                  ],
+                ),
+                Container(
+                  width: 25,
+                  height: 25,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/Icons/user.png'))),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
       drawer: const Drawer(
         child: DrawerEvent(),
       ),
@@ -29,54 +73,6 @@ class _ScreenHomeState extends State<ScreenHome> {
               height: size.height,
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 60,
-                    width: size.width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          width: 25,
-                          height: 25,
-                          decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/Icons/menu.png'))),
-                        ),
-                        const Row(
-                          children: [
-                            SizedBox(
-                              width: 250,
-                              height: 30,
-                              child: TextField(
-                                style: TextStyle(fontSize: 14),
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(25),
-                                    ),
-                                  ),
-                                  contentPadding:
-                                      EdgeInsets.only(left: 10, right: 10),
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Image(
-                              image: AssetImage('assets/Icons/loupe.png'),
-                              height: 30,
-                            ),
-                          ],
-                        ),
-                        Container(
-                          width: 25,
-                          height: 25,
-                          decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/Icons/user.png'))),
-                        ),
-                      ],
-                    ),
-                  ),
                   const Center(child: InteractiveModule()),
                 ],
               ),
