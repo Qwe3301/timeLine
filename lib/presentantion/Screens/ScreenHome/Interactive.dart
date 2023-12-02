@@ -34,15 +34,7 @@ class _InteractiveModuleState extends State<InteractiveModule> {
               );
             },
           ),
-          InkWell(
-            onTap: () {
-              print('as');
-            },
-            child: Container(
-              margin: const EdgeInsets.only(right: 20, bottom: 40),
-              child: Image.asset("assets/Icons/add.png", height: 60),
-            ),
-          )
+          IconButton(onPressed: () => {}, icon: const Icon(Icons.add))
         ],
       ),
     );

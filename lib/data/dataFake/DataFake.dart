@@ -25,7 +25,7 @@ class DataFake {
       "image":
           "https://static.wikia.nocookie.net/picrewcomp/images/b/bb/Tangerine.png/revision/latest?cb=20210731015622",
       "content":
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy industry's standard dummy.....",
+          "Lorem inting and typesetting industrtext and typesetting industrtext ofLorem inting and typesetting typesetting industrtext ofLorem inting and typesetting industrtext ofLorem inting and typesetting industrtext ofLorem inting and typesetting industrtext of",
       "inicio": 1709,
       "final": 1712,
       "isOpen": false,
