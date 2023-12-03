@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_line/provider/EventController.dart';
+import 'package:time_line/provider/event_controller.dart';
 
 // ignore: must_be_immutable
 class EventModule extends StatefulWidget {
