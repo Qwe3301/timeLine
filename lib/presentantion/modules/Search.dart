@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_line/provider/event_controller.dart';
+import 'dart:ui';
 
 class SearchModule extends StatefulWidget {
   SearchModule({super.key, required this.textSerch});
@@ -25,27 +26,33 @@ class _SearchModuleState extends State<SearchModule> {
     }
 
     List filter = functionFilter(widget.textSerch);
-    return Container(
-      color: Colors.black.withOpacity(0.8),
-      child: ListView.builder(
-        itemCount: filter.length,
-        itemBuilder: ((context, index) {
-          return Center(
-            child: Container(
-              width: 300,
-              height: 40,
-              margin: const EdgeInsets.only(
-                top: 10,
-              ),
-              alignment: Alignment.topCenter,
-              decoration: BoxDecoration(
-                  color: Color(filter[index]["color"]),
-                  borderRadius: BorderRadius.circular(25)),
-              child:
-                  Text("${filter[index]["inicio"]}- ${filter[index]["nome"]} "),
-            ),
-          );
-        }),
+
+    return ClipRRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+        child: Container(
+          decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
+          child: ListView.builder(
+            itemCount: filter.length,
+            itemBuilder: ((context, index) {
+              return Center(
+                child: Container(
+                  width: 300,
+                  height: 40,
+                  margin: const EdgeInsets.only(
+                    top: 10,
+                  ),
+                  alignment: Alignment.topCenter,
+                  decoration: BoxDecoration(
+                      color: Color(filter[index]["color"]),
+                      borderRadius: BorderRadius.circular(25)),
+                  child: Text(
+                      "${filter[index]["inicio"]}- ${filter[index]["nome"]} "),
+                ),
+              );
+            }),
+          ),
+        ),
       ),
     );
   }
