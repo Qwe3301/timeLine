@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:time_line/provider/event_controller.dart';
 import 'dart:ui';
 
+import 'package:time_line/provider/time_line_controller.dart';
+
 class SearchModule extends StatefulWidget {
   SearchModule({super.key, required this.textSerch});
   String textSerch;
@@ -16,7 +18,7 @@ class _SearchModuleState extends State<SearchModule> {
 
     List functionFilter(text) {
       List listFilter = [];
-      for (var event in db.dbClone) {
+      for (var event in db.eventsClone) {
         if (event["nome"].toLowerCase().contains(text.toLowerCase()) ||
             event["inicio"].toString().contains(text)) {
           listFilter.add(event);
@@ -26,6 +28,12 @@ class _SearchModuleState extends State<SearchModule> {
     }
 
     List filter = functionFilter(widget.textSerch);
+    TimeLineController timeLineController = TimeLineController();
+    void functionFocusYear(int year) {
+      timeLineController.functionZerarMoreYear();
+      timeLineController.functionChangeFocusYear(year);
+      timeLineController.functionScrollControllerJumpTo(0);
+    }
 
     return ClipRRect(
       child: BackdropFilter(
@@ -36,18 +44,21 @@ class _SearchModuleState extends State<SearchModule> {
             itemCount: filter.length,
             itemBuilder: ((context, index) {
               return Center(
-                child: Container(
-                  width: 300,
-                  height: 40,
-                  margin: const EdgeInsets.only(
-                    top: 10,
+                child: GestureDetector(
+                  onTap: () => functionFocusYear(1710),
+                  child: Container(
+                    width: 300,
+                    height: 40,
+                    margin: const EdgeInsets.only(
+                      top: 10,
+                    ),
+                    alignment: Alignment.topCenter,
+                    decoration: BoxDecoration(
+                        color: Color(filter[index]["color"]),
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Text(
+                        "${filter[index]["inicio"]}- ${filter[index]["nome"]} "),
                   ),
-                  alignment: Alignment.topCenter,
-                  decoration: BoxDecoration(
-                      color: Color(filter[index]["color"]),
-                      borderRadius: BorderRadius.circular(25)),
-                  child: Text(
-                      "${filter[index]["inicio"]}- ${filter[index]["nome"]} "),
                 ),
               );
             }),

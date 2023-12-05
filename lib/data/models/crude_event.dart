@@ -1,3 +1,6 @@
 abstract class CRUDevent {
-  createEvent();
+  void createEvent();
+  List<Map<String, dynamic>> read();
+  void update();
+  void delete();
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_line/presentantion/screens/screen_home/screen_home.dart';
 import 'package:time_line/provider/event_controller.dart';
+import 'package:time_line/provider/search_controller.dart';
 import 'package:time_line/provider/time_line_controller.dart';
 import 'package:time_line/provider/repository_controller.dart';
 
@@ -12,6 +13,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => RepositoryController()),
         ChangeNotifierProvider(create: (_) => TimeLineController()),
         ChangeNotifierProvider(create: (_) => EventController()),
+        ChangeNotifierProvider(create: (_) => Search_Controller()),
       ],
       child: const MyApp(),
     ),

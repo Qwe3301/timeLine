@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:time_line/presentantion/modules/drawer_event.dart';
 import 'package:time_line/presentantion/screens/screen_home/interactive.dart';
 import 'package:time_line/presentantion/modules/search.dart';
+import 'package:time_line/provider/search_controller.dart';
 
 class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
@@ -11,28 +13,16 @@ class ScreenHome extends StatefulWidget {
 }
 
 class _ScreenHomeState extends State<ScreenHome> {
-  int este = 0;
-  bool isSearching = false;
-  FocusNode isSearchingFocus = FocusNode();
-  String textSearch = "";
   @override
   Widget build(BuildContext context) {
-    isSearchingFocus.addListener(() {
-      if (isSearchingFocus.hasFocus) {
-        setState(() {
-          isSearching = true;
-        });
-      } else {
-        setState(() {
-          isSearching = false;
-        });
-      }
-    });
-    var size = MediaQuery.of(context).size;
+    Search_Controller searchController = Provider.of(context);
 
+    searchController.addSearchListener();
+
+    var size = MediaQuery.of(context).size;
     return PopScope(
-      canPop: !isSearching,
-      onPopInvoked: (didPop) => isSearchingFocus.unfocus(),
+      canPop: !searchController.isSearching,
+      onPopInvoked: (didPop) => searchController.isSearchingFocus.unfocus(),
       child: Scaffold(
         appBar: AppBar(
           title: SizedBox(
@@ -47,9 +37,9 @@ class _ScreenHomeState extends State<ScreenHome> {
                       width: 150,
                       height: 40,
                       child: TextField(
-                        onChanged: (value) =>
-                            setState(() => textSearch = value),
-                        focusNode: isSearchingFocus,
+                        onChanged: (value) => setState(
+                            () => searchController.changeTextSearch(value)),
+                        focusNode: searchController.isSearchingFocus,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -103,7 +93,8 @@ class _ScreenHomeState extends State<ScreenHome> {
                 ),
               ),
             ),
-            if (isSearching) SearchModule(textSerch: textSearch)
+            if (searchController.isSearching)
+              SearchModule(textSerch: searchController.textSearch)
           ],
         ),
       ),

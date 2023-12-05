@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:time_line/data/data_fake/data_fake.dart';
+import 'package:time_line/provider/repository_controller.dart';
 
 class EventController extends ChangeNotifier {
-  DataFake db = DataFake();
-  List<Map<String, dynamic>> get dbClone => db.teste2;
+  List<Map<String, dynamic>> eventsClone = RepositoryController().eventsClone;
   List<Map<String, int>> listaOpen = [];
 
   void addListaOpen(int firstYearParam, int lastParam, int colorParam) {
@@ -18,17 +17,17 @@ class EventController extends ChangeNotifier {
   }
 
   void changeIsOpen(int eachYearParam) {
-    for (var i = 0; i < db.teste2.length; i++) {
-      if (db.teste2[i]["inicio"] == eachYearParam) {
-        if (db.teste2[i]["isOpen"]) {
-          removeArrayIsOpen(dbClone[i]["inicio"]);
+    for (var i = 0; i < eventsClone.length; i++) {
+      if (eventsClone[i]["inicio"] == eachYearParam) {
+        if (eventsClone[i]["isOpen"]) {
+          removeArrayIsOpen(eventsClone[i]["inicio"]);
           notifyListeners();
         } else {
-          addListaOpen(
-              dbClone[i]["inicio"], dbClone[i]["final"], dbClone[i]["color"]);
+          addListaOpen(eventsClone[i]["inicio"], eventsClone[i]["final"],
+              eventsClone[i]["color"]);
           notifyListeners();
         }
-        db.teste2[i]["isOpen"] = !db.teste2[i]["isOpen"];
+        eventsClone[i]["isOpen"] = !eventsClone[i]["isOpen"];
       }
     }
   }
@@ -40,14 +39,14 @@ class EventController extends ChangeNotifier {
 
   int colorLine(int eachYearParam) {
     int colorLineVar = 0;
-    for (var i = 0; i < dbClone.length; i++) {
-      if (eachYearParam == dbClone[i]["inicio"]) {
-        colorLineVar = dbClone[i]["color"]!;
+    for (var i = 0; i < eventsClone.length; i++) {
+      if (eachYearParam == eventsClone[i]["inicio"]) {
+        colorLineVar = eventsClone[i]["color"]!;
       }
     }
     return colorLineVar;
   }
 
   Iterable<Map<String, dynamic>> teste(int eachYearParam) =>
-      dbClone.where((e) => e['inicio'] == eachYearParam);
+      eventsClone.where((e) => e['inicio'] == eachYearParam);
 }
