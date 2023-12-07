@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_line/presentantion/modules/drawer_event.dart';
-import 'package:time_line/presentantion/screens/screen_home/interactive.dart';
+import 'package:time_line/presentantion/modules/interactive.dart';
 import 'package:time_line/presentantion/modules/search.dart';
 import 'package:time_line/provider/search_controller.dart';
 
-class ScreenHome extends StatefulWidget {
-  const ScreenHome({super.key});
+class TimeLineHomeExemple extends StatefulWidget {
+  const TimeLineHomeExemple({super.key});
 
   @override
-  State<ScreenHome> createState() => _ScreenHomeState();
+  State<TimeLineHomeExemple> createState() => _TimeLineHomeExempleState();
 }
 
-class _ScreenHomeState extends State<ScreenHome> {
+class _TimeLineHomeExempleState extends State<TimeLineHomeExemple> {
   @override
   Widget build(BuildContext context) {
     Search_Controller searchController = Provider.of(context);
@@ -52,7 +52,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                     ),
                     const SizedBox(width: 10),
                     const Image(
-                      image: AssetImage('assets/Icons/loupe.png'),
+                      image: AssetImage('assets/images/Icons/loupe.png'),
                       height: 20,
                     ),
                   ],
