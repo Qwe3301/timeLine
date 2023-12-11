@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:time_line/provider/event_controller.dart';
+import 'package:time_line/provider/repository_controller.dart';
+import 'package:time_line/provider/search_controller.dart';
 import 'dart:ui';
 
 import 'package:time_line/provider/time_line_controller.dart';
@@ -14,20 +17,8 @@ class SearchModule extends StatefulWidget {
 class _SearchModuleState extends State<SearchModule> {
   @override
   Widget build(BuildContext context) {
-    EventController db = EventController();
-
-    List functionFilter(text) {
-      List listFilter = [];
-      for (var event in db.eventsClone) {
-        if (event["nome"].toLowerCase().contains(text.toLowerCase()) ||
-            event["inicio"].toString().contains(text)) {
-          listFilter.add(event);
-        }
-      }
-      return listFilter;
-    }
-
-    List filter = functionFilter(widget.textSerch);
+    List filter = Provider.of<Search_Controller>(context, listen: false)
+        .functionFilter(widget.textSerch);
     TimeLineController timeLineController = TimeLineController();
     void functionFocusYear(int year) {
       timeLineController.functionZerarMoreYear();

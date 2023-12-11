@@ -15,4 +15,9 @@ class EventModel {
   int endDate;
   bool isOpen;
   int color;
+
+  @override
+  String toString() {
+    return name;
+  }
 }

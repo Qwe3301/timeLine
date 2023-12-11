@@ -1,52 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:time_line/data/models/event_model.dart';
 import 'package:time_line/provider/repository_controller.dart';
 
 class EventController extends ChangeNotifier {
-  List<Map<String, dynamic>> eventsClone = RepositoryController().eventsClone;
-  List<Map<String, int>> listaOpen = [];
+  RepositoryController eventsClone = RepositoryController();
+  List<EventModel> listaOpenOutra = [];
 
-  void addListaOpen(int firstYearParam, int lastParam, int colorParam) {
-    listaOpen
-        .add({"inicio": firstYearParam, "end": lastParam, "color": colorParam});
+  void removeArrayIsOpen2(int inicioParam) {
+    listaOpenOutra.removeWhere((element) => element.startDate == inicioParam);
     notifyListeners();
   }
 
-  void removeArrayIsOpen(int inicioParam) {
-    listaOpen.removeWhere((element) => element["inicio"] == inicioParam);
-    notifyListeners();
-  }
-
-  void changeIsOpen(int eachYearParam) {
-    for (var i = 0; i < eventsClone.length; i++) {
-      if (eventsClone[i]["inicio"] == eachYearParam) {
-        if (eventsClone[i]["isOpen"]) {
-          removeArrayIsOpen(eventsClone[i]["inicio"]);
+  void changeIsOpen2(int eachYearParam) {
+    print(eventsClone.eventsLength());
+    for (var i = 0; i < eventsClone.eventsLength(); i++) {
+      if (eventsClone.eventByIndex(i).startDate == eachYearParam) {
+        if (eventsClone.eventByIndex(i).isOpen) {
+          removeArrayIsOpen2(eventsClone.eventByIndex(i).startDate);
           notifyListeners();
+          print("esta Colocanto ?");
         } else {
-          addListaOpen(eventsClone[i]["inicio"], eventsClone[i]["final"],
-              eventsClone[i]["color"]);
-          notifyListeners();
+          print("esta Colocanto ?");
+          listaOpenOutra.add(eventsClone.eventByIndex(i));
         }
-        eventsClone[i]["isOpen"] = !eventsClone[i]["isOpen"];
+        eventsClone.eventByIndex(i).isOpen =
+            !eventsClone.eventByIndex(i).isOpen;
+        notifyListeners();
       }
     }
   }
 
   bool linha(indexParam, eachYearParam) =>
-      listaOpen.isNotEmpty &&
-      listaOpen[indexParam]["inicio"]! <= eachYearParam &&
-      listaOpen[indexParam]["end"]! >= eachYearParam;
+      listaOpenOutra.isNotEmpty &&
+      listaOpenOutra[indexParam].startDate <= eachYearParam &&
+      listaOpenOutra[indexParam].endDate >= eachYearParam;
 
   int colorLine(int eachYearParam) {
     int colorLineVar = 0;
-    for (var i = 0; i < eventsClone.length; i++) {
-      if (eachYearParam == eventsClone[i]["inicio"]) {
-        colorLineVar = eventsClone[i]["color"]!;
+    for (var i = 0; i < eventsClone.eventsLength(); i++) {
+      if (eachYearParam == eventsClone.eventByIndex(i).startDate) {
+        colorLineVar = eventsClone.eventByIndex(i).endDate;
       }
     }
     return colorLineVar;
   }
-
-  Iterable<Map<String, dynamic>> teste(int eachYearParam) =>
-      eventsClone.where((e) => e['inicio'] == eachYearParam);
 }

@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:time_line/data/data_fake/data_fake.dart';
-import 'package:time_line/provider/repository_controller.dart';
 
 class TimeLineController extends ChangeNotifier {
   final ScrollController _scrollController =
       ScrollController(initialScrollOffset: 40 * 50);
 
   ScrollController get scrollController => _scrollController;
-
-  List<Map<String, dynamic>> dbClone = RepositoryController().eventsClone;
 
   void addNewScrollListener() {
     _scrollController.addListener(scrollListener);
@@ -52,5 +48,11 @@ class TimeLineController extends ChangeNotifier {
   void functionChangeFocusYear(int newFocus) {
     focusYear = newFocus - 5;
     notifyListeners();
+  }
+
+  void functionFocusYear(int year) {
+    functionZerarMoreYear();
+    functionChangeFocusYear(year);
+    functionScrollControllerJumpTo(0);
   }
 }

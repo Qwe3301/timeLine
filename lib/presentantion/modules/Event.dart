@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_line/data/models/event_model.dart';
 import 'package:time_line/provider/event_controller.dart';
+import 'package:time_line/provider/repository_controller.dart';
 
 // ignore: must_be_immutable
 class EventModule extends StatefulWidget {
@@ -15,17 +17,18 @@ class EventModule extends StatefulWidget {
 class _EventModuleState extends State<EventModule> {
   @override
   Widget build(BuildContext context) {
-    EventController db = Provider.of<EventController>(context);
+    EventController db = Provider.of(context);
+    RepositoryController cuBorra = Provider.of(context);
     int eachYear = widget.year + widget.index;
-    Iterable<Map<String, dynamic>> teste = db.teste(eachYear);
+    Iterable<EventModel> teste = cuBorra.teste(eachYear);
     bool hasEvent = teste.isNotEmpty;
 
     Column eventContet(int eachYear) => Column(
           children: [
-            Text("${teste.first["inicio"]} - ${teste.first["inicio"]}"),
-            if (teste.first["image"] != "")
+            Text("${teste.first.startDate} - ${teste.first.startDate}"),
+            if (teste.first.imageUrl != "")
               Image.network(
-                teste.first["image"],
+                teste.first.imageUrl,
                 height: 150,
                 frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
                   return child;
@@ -40,13 +43,13 @@ class _EventModuleState extends State<EventModule> {
                   }
                 },
               ),
-            Text(teste.first["content"]),
+            Text(teste.first.content),
           ],
         );
 
     return Container(
       color: Colors.white,
-      height: hasEvent && teste.first["isOpen"] ? 300 : 40,
+      height: hasEvent && teste.first.isOpen ? 300 : 40,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -56,28 +59,30 @@ class _EventModuleState extends State<EventModule> {
           ),
           Stack(
             children: [
-              for (int index = 0; index < db.listaOpen.length; index++)
+              for (int index = 0; index < db.listaOpenOutra.length; index++)
                 if (db.linha(index, eachYear))
                   Container(
                     margin: EdgeInsets.only(left: 10.0 * index),
                     width: 3,
-                    height: hasEvent && teste.first["isOpen"] ? 300 : 40,
-                    color: Color(db.listaOpen[index]["color"] ?? 0xff0000),
+                    height: hasEvent && teste.first.isOpen ? 300 : 40,
+                    color: Color(db.listaOpenOutra[index].color),
                   ),
             ],
           ),
           if (hasEvent)
             Flexible(
               child: GestureDetector(
-                onTap: () => db.changeIsOpen(eachYear),
+                onTap: () {
+                  db.changeIsOpen2(eachYear);
+                },
                 child: Column(
                   children: [
                     Container(
                       margin: const EdgeInsets.only(left: 10, right: 10),
-                      height: teste.first["isOpen"] ? 295 : 40,
+                      height: teste.first.isOpen ? 295 : 40,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Color(teste.first["color"]),
+                        color: Color(teste.first.color),
                         border: Border.all(color: Colors.black, width: 2),
                         borderRadius: BorderRadius.circular(25),
                       ),
@@ -85,13 +90,13 @@ class _EventModuleState extends State<EventModule> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            " ${teste.first["nome"]}",
+                            " ${teste.first.name}",
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
                           ),
-                          if (teste.first["isOpen"]) eventContet(eachYear)
+                          if (teste.first.isOpen) eventContet(eachYear)
                         ],
                       ),
                     ),
