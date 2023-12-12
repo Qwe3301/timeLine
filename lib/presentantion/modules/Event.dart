@@ -4,7 +4,6 @@ import 'package:time_line/data/models/event_model.dart';
 import 'package:time_line/provider/event_controller.dart';
 import 'package:time_line/provider/repository_controller.dart';
 
-// ignore: must_be_immutable
 class EventModule extends StatefulWidget {
   EventModule({super.key, required this.year, required this.index});
   int year;
@@ -17,10 +16,13 @@ class EventModule extends StatefulWidget {
 class _EventModuleState extends State<EventModule> {
   @override
   Widget build(BuildContext context) {
-    EventController db = Provider.of(context);
-    RepositoryController cuBorra = Provider.of(context);
     int eachYear = widget.year + widget.index;
-    Iterable<EventModel> teste = cuBorra.teste(eachYear);
+
+    EventController db = Provider.of(context);
+
+    RepositoryController pegarLista = Provider.of(context);
+    Iterable<EventModel> teste = pegarLista.teste(eachYear);
+
     bool hasEvent = teste.isNotEmpty;
 
     Column eventContet(int eachYear) => Column(
@@ -47,65 +49,78 @@ class _EventModuleState extends State<EventModule> {
           ],
         );
 
-    return Container(
-      color: Colors.white,
-      height: hasEvent && teste.first.isOpen ? 300 : 40,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 50,
-            child: Text("$eachYear"),
-          ),
-          Stack(
-            children: [
-              for (int index = 0; index < db.listaOpenOutra.length; index++)
-                if (db.linha(index, eachYear))
-                  Container(
-                    margin: EdgeInsets.only(left: 10.0 * index),
-                    width: 3,
-                    height: hasEvent && teste.first.isOpen ? 300 : 40,
-                    color: Color(db.listaOpenOutra[index].color),
-                  ),
-            ],
-          ),
-          if (hasEvent)
-            Flexible(
-              child: GestureDetector(
-                onTap: () {
-                  db.changeIsOpen2(eachYear);
-                },
-                child: Column(
+    return MultiProvider(
+      providers: [
+        Provider(
+          create: (_) => RepositoryController(),
+        ),
+        Consumer(
+          builder: (context, value, child) => Container(
+            color: Colors.white,
+            height: hasEvent && teste.first.isOpen ? 300 : 40,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 50,
+                  child: Text("$eachYear"),
+                ),
+                Stack(
                   children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 10, right: 10),
-                      height: teste.first.isOpen ? 295 : 40,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Color(teste.first.color),
-                        border: Border.all(color: Colors.black, width: 2),
-                        borderRadius: BorderRadius.circular(25),
-                      ),
+                    for (int index = 0;
+                        index < db.listaOpenOutra.length;
+                        index++)
+                      if (db.linha(index, eachYear))
+                        Container(
+                          margin: EdgeInsets.only(left: 10.0 * index),
+                          width: 3,
+                          height: hasEvent && teste.first.isOpen ? 300 : 40,
+                          color: Color(db.listaOpenOutra[index].color),
+                        ),
+                  ],
+                ),
+                if (hasEvent)
+                  Flexible(
+                    child: GestureDetector(
+                      onTap: () {
+                        Provider.of<RepositoryController>(context,
+                                listen: false)
+                            .eventsLength();
+                      },
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            " ${teste.first.name}",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                          Container(
+                            margin: const EdgeInsets.only(left: 10, right: 10),
+                            height: teste.first.isOpen ? 295 : 40,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Color(teste.first.color),
+                              border: Border.all(color: Colors.black, width: 2),
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  " ${teste.first.name}",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                if (teste.first.isOpen) eventContet(eachYear)
+                              ],
                             ),
                           ),
-                          if (teste.first.isOpen) eventContet(eachYear)
                         ],
                       ),
                     ),
-                  ],
-                ),
-              ),
+                  ),
+              ],
             ),
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }

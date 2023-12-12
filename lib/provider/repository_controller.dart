@@ -32,7 +32,11 @@ class RepositoryController extends ChangeNotifier implements CRUDevent {
     return events;
   }
 
-  int eventsLength() => events.length;
+  int eventsLength() {
+    print("Este e o evento: ${events.length}");
+    return events.length;
+  }
+
   EventModel eventByIndex(index) => events[index];
 
   @override
@@ -68,6 +72,7 @@ class RepositoryController extends ChangeNotifier implements CRUDevent {
       return e.startDate == eachYearParam;
     });
 
+    print(teste);
     return teste;
   }
 }
