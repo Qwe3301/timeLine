@@ -31,15 +31,6 @@ class _DrawerEventState extends State<DrawerEvent> {
                       ),
                     ),
                     onPressed: () {
-                      value.createEvent(
-                          color: 000000,
-                          content: "",
-                          endDate: 1750,
-                          startDate: 1751,
-                          imageUrl: "",
-                          isOpen: false,
-                          name:
-                              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                       Provider.of<TimeLineController>(context, listen: false)
                           .functionFocusYear(
                               value.eventByIndex(index).startDate);

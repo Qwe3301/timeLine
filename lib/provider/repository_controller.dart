@@ -40,8 +40,7 @@ class RepositoryController extends ChangeNotifier implements CRUDevent {
   EventModel eventByIndex(index) => events[index];
 
   @override
-  void createEvent(
-      {name, imageUrl, content, startDate, endDate, isOpen, color}) {
+  void addEvent({name, imageUrl, content, startDate, endDate, isOpen, color}) {
     events.add(
       EventModel(
         name: name,

@@ -82,11 +82,7 @@ class _EventModuleState extends State<EventModule> {
                 if (hasEvent)
                   Flexible(
                     child: GestureDetector(
-                      onTap: () {
-                        Provider.of<RepositoryController>(context,
-                                listen: false)
-                            .eventsLength();
-                      },
+                      onTap: () {},
                       child: Column(
                         children: [
                           Container(

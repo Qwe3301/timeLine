@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:time_line/presentantion/modules/drawer_event.dart';
 import 'package:time_line/presentantion/modules/interactive.dart';
 import 'package:time_line/presentantion/modules/search.dart';
+import 'package:time_line/provider/event_controller.dart';
+import 'package:time_line/provider/repository_controller.dart';
 import 'package:time_line/provider/search_controller.dart';
 
 class TimeLineHomeExemple extends StatefulWidget {
@@ -94,7 +96,24 @@ class _TimeLineHomeExempleState extends State<TimeLineHomeExemple> {
               ),
             ),
             if (searchController.isSearching)
-              SearchModule(textSerch: searchController.textSearch)
+              SearchModule(textSerch: searchController.textSearch),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10, right: 10),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    shape: const CircleBorder(),
+                    alignment: Alignment.center,
+                  ),
+                  onPressed: () {
+                    Provider.of<RepositoryController>(context, listen: false).
+                  },
+                  child: const Icon(Icons.add, size: 40),
+                ),
+              ),
+            )
           ],
         ),
       ),

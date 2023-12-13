@@ -34,7 +34,6 @@ class _InteractiveModuleState extends State<InteractiveModule> {
               );
             },
           ),
-          IconButton(onPressed: () => {}, icon: const Icon(Icons.add))
         ],
       ),
     );
